@@ -2,10 +2,12 @@ package com.shopwave.controller;
 
 import com.shopwave.dto.OrderDto;
 import com.shopwave.dto.PlaceOrderRequest;
+import com.shopwave.service.OrderPlacementResult;
 import com.shopwave.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,10 +35,11 @@ public class OrderController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public OrderDto place(@Valid @RequestBody PlaceOrderRequest req) {
-        // TODO LAB-5: X-Idempotency-Key header'ını oku ve OrderService'e ilet
-        return orderService.placeOrder(req);
+    public ResponseEntity<OrderDto> place(@RequestHeader(value = "X-Request-Id", required = false) String requestId,
+                                          @Valid @RequestBody PlaceOrderRequest req) {
+        OrderPlacementResult result = orderService.placeOrder(req, requestId);
+        HttpStatus status = result.created() ? HttpStatus.CREATED : HttpStatus.OK;
+        return ResponseEntity.status(status).body(result.order());
     }
 
     @PostMapping("/{id}/confirm")

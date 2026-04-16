@@ -7,11 +7,13 @@
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/service/AuditService.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/exception/InvalidOrderStateException.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/domain/Product.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/service/IdempotencyService.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/domain/Customer.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/dto/ProductDto.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/ShopWaveApplication.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/repository/InventoryRepository.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/controller/OrderController.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/service/OrderPlacementResult.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/dto/PlaceOrderRequest.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/controller/ProductController.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/exception/LatencyStopException.java
@@ -21,6 +23,7 @@
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/exception/DeadlineExceededException.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/config/CorsConfig.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/repository/AuditLogRepository.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/exception/MissingRequestIdException.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/exception/GlobalExceptionHandler.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/controller/CustomerController.java
 /Users/seyitkarahan/Desktop/shopwave-monolith/backend/src/main/java/com/shopwave/dto/OrderDto.java

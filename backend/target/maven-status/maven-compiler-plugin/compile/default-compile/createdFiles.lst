@@ -1,4 +1,5 @@
 com/shopwave/domain/AuditLog.class
+com/shopwave/service/IdempotencyService.class
 com/shopwave/domain/Order$OrderStatus.class
 com/shopwave/exception/LatencyStopException.class
 com/shopwave/domain/Order$OrderBuilder.class
@@ -17,9 +18,11 @@ com/shopwave/domain/OrderItem$OrderItemBuilder.class
 com/shopwave/service/OrderService.class
 com/shopwave/domain/Category.class
 com/shopwave/controller/OrderController.class
+com/shopwave/service/OrderPlacementResult.class
 com/shopwave/repository/OrderRepository.class
 com/shopwave/dto/PlaceOrderRequest$OrderItemRequest.class
 com/shopwave/service/InventoryService.class
+com/shopwave/exception/MissingRequestIdException.class
 com/shopwave/domain/Product.class
 com/shopwave/controller/SystemController.class
 com/shopwave/enrollment/LatencyInjector.class

@@ -50,6 +50,7 @@ public class OrderService {
     private final InventoryService   inventoryService;
     private final AuditService       auditService;
     private final DeadlineGuard      deadlineGuard;
+    private final IdempotencyService idempotencyService;
 
     // ─── Queries ──────────────────────────────────────────────
 
@@ -82,9 +83,15 @@ public class OrderService {
      * Stok rezervasyonu ve sipariş kaydı atomik — ya hepsi, ya hiçbiri.
      */
     @Transactional
-    public OrderDto placeOrder(PlaceOrderRequest req) {
-        // TODO LAB-5: X-Idempotency-Key kontrolü
+    public OrderPlacementResult placeOrder(PlaceOrderRequest req, String requestId) {
         // TODO LAB-2: Chaos delay — yapay gecikme enjekte et
+        String normalizedRequestId = idempotencyService.requireRequestId(requestId);
+
+        Order existing = idempotencyService.findExistingOrder(normalizedRequestId).orElse(null);
+        if (existing != null) {
+            return new OrderPlacementResult(toDto(existing), false);
+        }
+
         long startedAt = deadlineGuard.start();
 
         Customer customer = customerRepository.findById(req.getCustomerId())
@@ -96,6 +103,7 @@ public class OrderService {
                 .customer(customer)
                 .status(OrderStatus.PENDING)
                 .shippingAddress(req.getShippingAddress())
+                .idempotencyKey(normalizedRequestId)
                 .items(new ArrayList<>())
                 .build();
 
@@ -134,7 +142,7 @@ public class OrderService {
         log.info("Order placed ref={} customerId={} total={}",
                 order.getOrderRef(), customer.getId(), order.getTotalAmount());
 
-        return toDto(order);
+        return new OrderPlacementResult(toDto(order), true);
     }
 
     /** Siparişi onayla (ödeme alındı). */

@@ -39,6 +39,11 @@ public class GlobalExceptionHandler {
         return problem(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
     }
 
+    @ExceptionHandler(MissingRequestIdException.class)
+    public ProblemDetail handleMissingRequestId(MissingRequestIdException ex) {
+        return problem(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ProblemDetail handleBadArg(IllegalArgumentException ex) {
         return problem(HttpStatus.BAD_REQUEST, ex.getMessage());
