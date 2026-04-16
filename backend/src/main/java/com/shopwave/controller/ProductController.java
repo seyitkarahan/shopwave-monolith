@@ -1,6 +1,7 @@
 package com.shopwave.controller;
 
 import com.shopwave.dto.ProductDto;
+import com.shopwave.enrollment.LatencyInjector;
 import com.shopwave.service.ProductService;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,12 @@ import java.util.Map;
 public class ProductController {
 
     private final ProductService productService;
+    private final LatencyInjector latencyInjector;
 
     @GetMapping
     public List<ProductDto> list(
             @RequestParam(required = false) Long categoryId) {
+        latencyInjector.maybeSleep();
         if (categoryId != null) return productService.listByCategory(categoryId);
         return productService.listAll();
     }
