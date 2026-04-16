@@ -29,6 +29,16 @@ public class GlobalExceptionHandler {
         return problem(HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage());
     }
 
+    @ExceptionHandler(DeadlineExceededException.class)
+    public ProblemDetail handleDeadline(DeadlineExceededException ex) {
+        return problem(HttpStatus.GATEWAY_TIMEOUT, ex.getMessage());
+    }
+
+    @ExceptionHandler(LatencyStopException.class)
+    public ProblemDetail handleLatencyStop(LatencyStopException ex) {
+        return problem(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ProblemDetail handleBadArg(IllegalArgumentException ex) {
         return problem(HttpStatus.BAD_REQUEST, ex.getMessage());

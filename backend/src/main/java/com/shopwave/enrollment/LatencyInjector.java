@@ -1,5 +1,6 @@
 package com.shopwave.enrollment;
 
+import com.shopwave.exception.LatencyStopException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,8 @@ public class LatencyInjector {
     private boolean enabled = true;
     private long delayMs = 0;
     private long jitterMs = 0;
+    private boolean stopEnabled = true;
+    private long stopThresholdMs = 3000;
 
     public void maybeSleep() {
         if (!enabled) {
@@ -23,6 +26,11 @@ public class LatencyInjector {
         long total = delayMs + extra;
         if (total <= 0) {
             return;
+        }
+
+        if (stopEnabled && total >= stopThresholdMs) {
+            throw new LatencyStopException(
+                    "Latency stop triggered: totalDelayMs=" + total + " thresholdMs=" + stopThresholdMs);
         }
 
         try {
@@ -54,5 +62,21 @@ public class LatencyInjector {
 
     public void setJitterMs(long jitterMs) {
         this.jitterMs = jitterMs;
+    }
+
+    public boolean isStopEnabled() {
+        return stopEnabled;
+    }
+
+    public void setStopEnabled(boolean stopEnabled) {
+        this.stopEnabled = stopEnabled;
+    }
+
+    public long getStopThresholdMs() {
+        return stopThresholdMs;
+    }
+
+    public void setStopThresholdMs(long stopThresholdMs) {
+        this.stopThresholdMs = stopThresholdMs;
     }
 }

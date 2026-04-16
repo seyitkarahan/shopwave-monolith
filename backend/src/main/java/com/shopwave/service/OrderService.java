@@ -5,6 +5,7 @@ import com.shopwave.domain.Order.OrderStatus;
 import com.shopwave.dto.OrderDto;
 import com.shopwave.dto.OrderDto.OrderItemDto;
 import com.shopwave.dto.PlaceOrderRequest;
+import com.shopwave.enrollment.DeadlineGuard;
 import com.shopwave.exception.InvalidOrderStateException;
 import com.shopwave.exception.NotFoundException;
 import com.shopwave.repository.CustomerRepository;
@@ -48,6 +49,7 @@ public class OrderService {
     private final ProductRepository  productRepository;
     private final InventoryService   inventoryService;
     private final AuditService       auditService;
+    private final DeadlineGuard      deadlineGuard;
 
     // ─── Queries ──────────────────────────────────────────────
 
@@ -82,11 +84,12 @@ public class OrderService {
     @Transactional
     public OrderDto placeOrder(PlaceOrderRequest req) {
         // TODO LAB-5: X-Idempotency-Key kontrolü
-        // TODO LAB-4: Timeout deadline — bu metot X ms'den uzun sürerse TimeoutException fırlat
         // TODO LAB-2: Chaos delay — yapay gecikme enjekte et
+        long startedAt = deadlineGuard.start();
 
         Customer customer = customerRepository.findById(req.getCustomerId())
                 .orElseThrow(() -> new NotFoundException("Customer not found: " + req.getCustomerId()));
+        deadlineGuard.check(startedAt, "placeOrder");
 
         Order order = Order.builder()
                 .orderRef(generateOrderRef())
@@ -98,6 +101,7 @@ public class OrderService {
 
         // Her sipariş kalemi için: ürünü bul, stok rezerve et, item ekle
         for (PlaceOrderRequest.OrderItemRequest itemReq : req.getItems()) {
+            deadlineGuard.check(startedAt, "placeOrder");
             Product product = productRepository.findByIdWithLock(itemReq.getProductId())
                     .orElseThrow(() -> new NotFoundException("Product not found: " + itemReq.getProductId()));
 
@@ -108,6 +112,7 @@ public class OrderService {
             // InventoryService.reserve() bu transaction'a katılır.
             // Dağıtık mimaride bu satır HTTP çağrısına dönüşecek → atomiklik bozulacak.
             inventoryService.reserve(product.getId(), itemReq.getQuantity());
+            deadlineGuard.check(startedAt, "placeOrder");
 
             OrderItem item = OrderItem.builder()
                     .order(order)
@@ -120,6 +125,7 @@ public class OrderService {
 
         order.recalculateTotal();
         orderRepository.save(order);
+        deadlineGuard.check(startedAt, "placeOrder");
 
         auditService.log("ORDER_PLACED", "Order", order.getId(),
                 "ref=" + order.getOrderRef() + " total=" + order.getTotalAmount()
