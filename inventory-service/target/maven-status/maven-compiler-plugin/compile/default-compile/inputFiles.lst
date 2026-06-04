@@ -1,0 +1,17 @@
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/dto/InitStockRequest.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/repository/AuditLogRepository.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/domain/AuditLog.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/InventoryServiceApplication.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/service/AuditService.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/controller/InventoryController.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/config/ChaosProperties.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/exception/InsufficientStockException.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/service/InventoryService.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/domain/Inventory.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/dto/StockOperationRequest.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/exception/ChaosFailureException.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/controller/HealthController.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/repository/InventoryRepository.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/exception/NotFoundException.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/dto/InventoryView.java
+/Users/seyitkarahan/Desktop/shopwave-monolith/inventory-service/src/main/java/com/shopwave/inventory/exception/GlobalExceptionHandler.java

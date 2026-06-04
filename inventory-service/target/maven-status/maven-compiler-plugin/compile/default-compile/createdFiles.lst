@@ -1,0 +1,4 @@
+com/shopwave/inventory/InventoryServiceApplication.class
+com/shopwave/inventory/dto/InitStockRequest.class
+com/shopwave/inventory/repository/AuditLogRepository.class
+com/shopwave/inventory/domain/AuditLog.class
